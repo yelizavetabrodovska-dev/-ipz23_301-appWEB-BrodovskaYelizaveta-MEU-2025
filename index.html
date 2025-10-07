@@ -1,19 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HealthyFood</title>
+  <link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #F0EADB;
+    }
+
+    header {
+      background-color: #F0EADB;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    header h1 {
+      font-family: 'Shrikhand', cursive;
+      color: #8a9a76;
+      font-size: 45px;
+      margin: 0;
+    }
+
+    header p {
+      font-size: 14px;
+      color: #8f8b80;
+      margin-top: 1px;
+      letter-spacing: 5px;
+    }
+
+    
+    nav {
+      background-color: #d9d4c2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 10px 60px;
+      box-sizing: border-box;
+      white-space: nowrap;
+    }
+
+    
+    .menu {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      white-space: nowrap;
+    }
+
+    .menu ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 40px;
+      flex-wrap: nowrap; 
+      justify-content: center;
+    }
+
+    .menu ul li {
+      position: relative;
+      display: inline-block;
+    }
+
+    .menu ul li a {
+      text-decoration: none;
+      color: #3b2f22;
+      font-weight: 500;
+      font-size: 22px;
+      transition: color 0.3s;
+    }
+
+    .menu ul li a:hover {
+      color: #8a9a76;
+    }
+
+    /* --- Випадаючі меню --- */
+    .menu ul li ul {
+     opacity: 0;
+     visibility: hidden;
+     position: absolute;
+     top: 35px;
+     left: 50%;
+     transform: translateX(-50%);
+     background-color: #f5f1e9;
+     padding: 10px 0;
+     border-radius: 10px;
+     box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+     transition: opacity 0.3s ease, visibility 0.3s ease;
+     transition-delay: 0.2s;
+     white-space: nowrap;
+     z-index: 10;
+     display: block; 
+    }
+
+   .menu ul li ul li {
+     display: block; 
+     text-align: left;
+     padding: 4px 20px;
+    }
+
+    .menu ul li:hover ul {
+      opacity: 1;
+      visibility: visible;
+      transition-delay: 0.1s;
+    }
+
+    .menu ul li ul:hover {
+      opacity: 1;
+      visibility: visible;
+      transition-delay: 0.4s;
+    }
+
+    .menu ul li ul li a {
+      color: #3b2f22;
+      display: block;
+      padding: 4px 8px;
+      font-size: 16px;
+    }
+
+    .menu ul li ul li a:hover {
+      color: #8a9a76;
+    }
+
+    
+    .search {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .search input[type="text"] {
+      padding: 6px 10px;
+      border: 2px solid #5c4b36;
+      border-radius: 20px;
+      outline: none;
+      width: 20vw;
+      min-width: 140px;
+      max-width: 280px;
+      transition: width 0.3s ease;
+    }
+
+    
+    .search-icon {
+      display: none;
+      font-size: 20px;
+      color: #3b2f22;
+      cursor: pointer;
+      margin-left: auto;
+    }
+
+    #toggle-search {
+      display: none;
+    }
+
+    
+    @media (max-width: 950px) {
+      /* Поле пошуку приховується */
+      .search input[type="text"] {
+        display: none;
+      }
+
+      
+      .search-icon {
+        display: block;
+      }
+
+      
+      #toggle-search:checked + .search-icon + input[type="text"] {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 35px;
+        background: #f5f1e9;
+        border: 2px solid #5c4b36;
+        border-radius: 20px;
+        padding: 6px 10px;
+        width: 60vw;
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+        animation: fadeIn 0.3s ease;
+      }
+
+      
+      .menu ul {
+        flex-wrap: nowrap;
+        gap: 30px;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
-<header>
 
-</header>
-<main>
-    <h1>Веб-застосунок</h1>
-</main>
-<footer>
+  <header>
+    <h1>HealthyFood</h1>
+    <p>Eat clean, feel great</p>
+  </header>
 
-</footer>
+  <nav>
+     <div class="menu">
+      <ul>
+        <li><a href="#">Home</a>
+          <ul>
+            <li><a href="#">Main Page</a></li>
+            <li><a href="#">News</a></li>
+            <li><a href="#">Highlights</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Recipes</a>
+          <ul>
+            <li><a href="#">Vegan</a></li>
+            <li><a href="#">Low-Calorie</a></li>
+            <li><a href="#">Desserts</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Categories</a>
+          <ul>
+            <li><a href="#">Breakfast</a></li>
+            <li><a href="#">Lunch</a></li>
+            <li><a href="#">Dinner</a></li>
+            <li><a href="#">Supper</a></li>
+          </ul>
+        </li>
+        <li><a href="#">About</a>
+          <ul>
+            <li><a href="#">Our Mission</a></li>
+            <li><a href="#">Team</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Contact</a>
+          <ul>
+            <li><a href="#">Email</a></li>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Facebook</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="search">
+      <input type="checkbox" id="toggle-search">
+      <label for="toggle-search" class="search-icon">🔍</label>
+      <input type="text" placeholder="Search...">
+    </div>
+  </nav>
+
 </body>
 </html>
