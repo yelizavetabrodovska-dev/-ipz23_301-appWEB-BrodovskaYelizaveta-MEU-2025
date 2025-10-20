@@ -23,11 +23,6 @@
   <ul>
     <li class="has-submenu">
       <a href="#" class="nav-link">Home</a>
-      <ul class="submenu">
-        <li><a href="#">Main Page</a></li>
-        <li><a href="#">News</a></li>
-      </ul>
-    </li>
 
     <li class="has-submenu">
       <a href="#" class="nav-link">Recipes</a>
@@ -76,12 +71,61 @@
 
 
   
-  <main id="content">
-    <h2>Welcome to HealthyFood!</h2>
-    <p>Your journey to healthy living starts here!</p>
-  </main>
+ <main id="content">
+  <section class="home-section" style="text-align: center;">
+    <h2 class="main-quote" style="font-family: 'Poppins', sans-serif; font-weight: 600; color: #3b2f22; font-size: 36px; margin-bottom: 50px">
+      “Good Food Is The Foundation Of Genuine Happiness.”
+    </h2>
 
-  
+    <button id="exploreBtn" class="explore-btn">Explore Recipes</button>
+
+    <div id="categories" class="recipe-categories" style="display: none;">
+      <button class="category-btn" data-category="breakfast">Breakfast</button>
+      <button class="category-btn" data-category="lunch">Lunch</button>
+      <button class="category-btn" data-category="dinner">Dinner</button>
+    </div>
+
+    <section id="popular-recipes" class="popular-section">
+      <h3>Popular Recipes</h3>
+      <div class="recipe-grid" id="popular-grid"></div>
+    </section>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <!-- Про сайт -->
+    <div class="footer-about">
+      <h3>Healthy Food</h3>
+      <p>Discover delicious and healthy recipes for every meal. Good food is the foundation of genuine happiness!</p>
+    </div>
+
+    <!-- Навігація -->
+    <div class="footer-nav">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Recipes</a></li>
+        <li><a href="#">Categories</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Соцмережі -->
+    <div class="footer-social">
+      <h4>Follow Us</h4>
+      <div class="social-links">
+        <a href="https://www.instagram.com/vis.by.lis" target="_blank">Instagram</a>
+        <a href="https://www.facebook.com/" target="_blank">Facebook</a>
+        <a href="mailto:hello@healthyfood.com">Email</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    &copy; 2025 Healthy Food. All rights reserved.
+  </div>
+</footer>
 
   <script src="script.js"></script>
 </body>
