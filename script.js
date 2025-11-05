@@ -211,6 +211,7 @@ function setupExploreSection() {
     mobileSubmenu.style.display = "none";
   }
 
+  
   // --- Функція для загального контенту ---
   function showContent(title, text) {
     content.innerHTML = `<h2>${title}</h2><p>${text}</p>`;
@@ -218,72 +219,79 @@ function setupExploreSection() {
     mobileSubmenu.style.display = "none";
   }
 
-  // --- Делегування кліків по основному меню ---
-  const menuRoot = document.querySelector(".menu > ul");
-  if (!menuRoot) {
-    console.error("Menu root not found (.menu > ul).");
+// --- Делегування кліків по основному меню ---
+const menuRoot = document.querySelector(".menu > ul");
+if (!menuRoot) {
+  console.error("Menu root not found (.menu > ul).");
+  return;
+}
+
+menuRoot.addEventListener("click", (e) => {
+  const link = e.target.closest("a");
+  if (!link) return;
+  e.preventDefault();
+
+  // Якщо клік прийшов з підменю (ul.submenu) — ігноруємо тут,
+  // щоб підменю-обробник (нижче) обробив цей клік
+  const parentUL = link.closest("ul");
+  if (parentUL && parentUL.classList.contains("submenu")) {
+    return; // нехай обробляє document делегатор для підпунктів
+  }
+
+  const section = link.textContent.trim();
+  console.log("Clicked main menu:", section);
+
+  // --- якщо натиснули Home ---
+  if (section === "Home") {
+    showHome();
     return;
   }
 
-  menuRoot.addEventListener("click", (e) => {
-    const link = e.target.closest("a");
-    if (!link) return;
-    e.preventDefault();
-
-    const section = link.textContent.trim();
-    console.log("Clicked main menu:", section);
-
-    // --- якщо натиснули Home ---
-    if (section === "Home") {
-      showHome();
+  // --- мобільна логіка ---
+  if (window.innerWidth <= 950) {
+    if (section === "Recipes") {
+      mobileSubmenu.innerHTML = `
+        <button class="submenu-btn">Breakfast</button>
+        <button class="submenu-btn">Lunch</button>
+        <button class="submenu-btn">Dinner</button>
+      `;
+      mobileSubmenu.style.display = "flex";
+      addMobileSubmenuHandlers();
+      menu.classList.remove("show");
       return;
     }
 
-    // --- мобільна логіка ---
-    if (window.innerWidth <= 950) {
-      if (section === "Recipes") {
-        mobileSubmenu.innerHTML = `
-          <button class="submenu-btn">Breakfast</button>
-          <button class="submenu-btn">Lunch</button>
-          <button class="submenu-btn">Dinner</button>
-        `;
-        mobileSubmenu.style.display = "flex";
-        addMobileSubmenuHandlers();
-        menu.classList.remove("show");
-        return;
-      }
-
-      if (section === "Categories") {
-        mobileSubmenu.innerHTML = `
-          <button class="submenu-btn">Vegan</button>
-          <button class="submenu-btn">Low-calorie</button>
-          <button class="submenu-btn">Desserts</button>
-        `;
-        mobileSubmenu.style.display = "flex";
-        addMobileSubmenuHandlers();
-        menu.classList.remove("show");
-        return;
-      }
-
-      if (section === "Contact") {
-        mobileSubmenu.innerHTML = `
-          <button class="submenu-btn">Instagram</button>
-          <button class="submenu-btn">Facebook</button>
-          <button class="submenu-btn">Email</button>
-        `;
-        mobileSubmenu.style.display = "flex";
-        addMobileSubmenuHandlers();
-        menu.classList.remove("show");
-        return;
-      }
-
-      showContent(section, `You opened the "${section}" section.`);
+    if (section === "Categories") {
+      mobileSubmenu.innerHTML = `
+        <button class="submenu-btn">Vegan</button>
+        <button class="submenu-btn">Low-calorie</button>
+        <button class="submenu-btn">Desserts</button>
+      `;
+      mobileSubmenu.style.display = "flex";
+      addMobileSubmenuHandlers();
+      menu.classList.remove("show");
       return;
     }
 
-    // --- Десктоп ---
+    if (section === "Contact") {
+      mobileSubmenu.innerHTML = `
+        <button class="submenu-btn">Instagram</button>
+        <button class="submenu-btn">Facebook</button>
+        <button class="submenu-btn">Email</button>
+      `;
+      mobileSubmenu.style.display = "flex";
+      addMobileSubmenuHandlers();
+      menu.classList.remove("show");
+      return;
+    }
+
     showContent(section, `You opened the "${section}" section.`);
-  });
+    return;
+  }
+
+  // --- Десктоп ---
+  showContent(section, `You opened the "${section}" section.`);
+});
 
   // --- Делегування кліків по підпунктах ---
   document.addEventListener("click", (e) => {
@@ -292,6 +300,17 @@ function setupExploreSection() {
 
     const text = (e.target.textContent || e.target.innerText).trim();
     e.preventDefault();
+
+    if (text === "Our Mission") {
+  showOurMission();
+  return;
+}
+
+if (text === "Our Team") {
+  showOurTeam();
+  return;
+}
+
 
     if (text === "Instagram") {
       window.open("https://www.instagram.com/vis.by.lis", "_blank");
@@ -361,6 +380,55 @@ function setupExploreSection() {
       });
     });
   }
+
+  // --- ABOUT: OUR MISSION ---
+function showOurMission() {
+  content.innerHTML = `
+    <section class="about-section">
+      <h2>Our Mission</h2>
+      <p>
+        At <strong>HealthyFood</strong>, our mission is to inspire people to make nutritious choices 
+        without giving up taste or joy. We believe that healthy eating should be simple, 
+        accessible, and enjoyable for everyone. Every recipe we share is designed to help you 
+        feel better, live stronger, and enjoy the beauty of real food made with care.
+      </p>
+      <p>
+        From busy mornings to cozy dinners, we aim to show that balanced eating can fit any lifestyle — 
+        whether you’re cooking for yourself, your family, or friends. 
+        Our goal is to build a community that values wellness, creativity, and happiness through food.
+      </p>
+    </section>
+  `;
+  menu.classList.remove("show");
+}
+
+// --- ABOUT: OUR TEAM ---
+function showOurTeam() {
+  content.innerHTML = `
+    <section class="about-section">
+      <h2>Our Team</h2>
+      <p>
+        We’re a small but passionate team of food enthusiasts, nutrition lovers, and digital creators 
+        who believe that food has the power to change lives. Each of us brings a unique flavor to 
+        the table — from recipe testing and photography to nutrition tips and design.
+      </p>
+      <p>
+        Together, we work to make <strong>HealthyFood</strong> a trusted space where you can find 
+        inspiration to cook, eat, and live better every day.
+      </p>
+
+      <div class="team-grid">
+        <div class="team-card">
+          <img src="images/photo_2025-08-10_15-50-57.jpg" alt="Founder, Recipe Developer, Food Photographer">
+          <h4>Liza</h4>
+          <p>Founder, Recipe Developer, Food Photographer</p>
+        </div>
+      </div>
+    </section>
+  `;
+  menu.classList.remove("show");
+}
+
 
   // --- Закриття мобільного підменю при ресайзі ---
   window.addEventListener("resize", () => {
